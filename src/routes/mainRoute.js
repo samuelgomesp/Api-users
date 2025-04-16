@@ -6,7 +6,7 @@ const mainRoute = express.Router()
 
 
 mainRoute.post('/register', (req, res) => {
-    const { username, password } = req.body
+    const { username, password, email } = req.body
 
     console.log(username)
 
@@ -14,9 +14,11 @@ mainRoute.post('/register', (req, res) => {
 
     if (userExists) res.status(409).json({ message: 'User already exists' })
 
-    if (!username || !password) res.status(400).json({ message: 'Username and password are required' })
+    if (!username || !password || !email) res.status(400).json({ message: 'All parameters are required' })
 
-    const user = { username, password }
+    if (/(?<=.{2})@(?=.{2,}\..{2})/.test(email) === false) res.status(400).json({ message: "E-mail invalid" })
+
+    const user = { username, password, email, role: 'standard' }
     users.push(user)
 
     res.status(201).json({ message: 'User registered successfully', users})

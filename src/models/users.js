@@ -1,6 +1,6 @@
 const users = [
-    { username: "samuel", password: 123456, role: "admin" },
-    { username: "john", password: 654321, role: "standard" }
+    { username: "samuel", email: "samuel@email.com", password: 123456, role: "admin" },
+    { username: "john", email: "john@email.com", password: 654321, role: "standard" }
 ]
 
 module.exports = users
