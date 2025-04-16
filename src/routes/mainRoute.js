@@ -8,15 +8,17 @@ const mainRoute = express.Router()
 mainRoute.post('/register', (req, res) => {
     const { username, password, email } = req.body
 
-    console.log(username)
+    const emailExists = users.find(user => user.email === email)
 
-    const userExists = users.find(user => user.username === username)
+    if (emailExists) return res.status(409).json({ message: 'Email already registered in the database' })
 
-    if (userExists) res.status(409).json({ message: 'User already exists' })
+    if (!username || !password || !email) {
+        return res.status(400).json({ message: 'All parameters are required' })
+    } 
 
-    if (!username || !password || !email) res.status(400).json({ message: 'All parameters are required' })
-
-    if (/(?<=.{2})@(?=.{2,}\..{2})/.test(email) === false) res.status(400).json({ message: "E-mail invalid" })
+    if (/(?<=.{2})@(?=.{2,}\..{2})/.test(email) === false) {
+        return res.status(400).json({ message: "E-mail invalid" })
+    } 
 
     const user = { username, password, email, role: 'standard' }
     users.push(user)
@@ -24,12 +26,18 @@ mainRoute.post('/register', (req, res) => {
     res.status(201).json({ message: 'User registered successfully', users})
 })
 
-mainRoute.get('/login', (req, res) => {
+mainRoute.post('/login', (req, res) => {
     const { username, password } = req.body
+
+    if (!username || !password) {
+        return res.status(400).json({ message: 'All parameters are required' })
+    }
 
     const user = users.find(user => user.username === username)
 
-    if (!user || user.password !== password) res.status(401).json({ message: 'Invalid Credencials' })
+    if (!user || user.password !== password) {
+        return res.status(401).json({ message: 'Invalid Credencials' })
+    } 
 
     res.status(200).json({ message: `Welcome ${user.username}` })
 })
