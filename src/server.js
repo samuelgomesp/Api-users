@@ -1,12 +1,13 @@
 const express = require('express')
-const path = require('node:path')
-const mainRoute = require('./routes/mainRoute')
+const mainRouter = require('./routes/mainRoutes')
+const authRouter = require('./routes/authRoutes')
 
 const app = express()
 
 app.use(express.json()) 
 
-app.use('/home', mainRoute)
+app.use('/test', mainRouter)
+app.use('auth', authRouter)
 
 const PORT = process.env.PORT || 3000
 
