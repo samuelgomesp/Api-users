@@ -7,7 +7,7 @@ const app = express()
 app.use(express.json()) 
 
 app.use('/test', mainRouter)
-app.use('auth', authRouter)
+app.use('/auth', authRouter)
 
 const PORT = process.env.PORT || 3000
 
