@@ -51,6 +51,14 @@ npm run server
 
 ---
 
+## ⭐ Funcionamento
+
+Caso tenha interesse há um vídeo que gravei explicando um pouco mais sobre o projeto, como uma maneira mais didática de compreendê-lo, o conteúdo encontra-se na rede linkedin.
+
+Acesse [vídeo Api](https://www.linkedin.com/feed/update/urn:li:activity:7319114110145593344/)
+
+---
+
 ## 🔐 Autenticação & Permissões
 
 - Todos os usuários são criados com o nível **"standard"** por padrão.
