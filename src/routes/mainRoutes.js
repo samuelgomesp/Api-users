@@ -28,17 +28,19 @@ mainRouter.post('/register', (req, res) => {
 })
 
 mainRouter.post('/login', (req, res) => {
-    const { username, password } = req.body
+    const { email, password } = req.body
 
-    if (!username || !password) {
+    if (!email || !password) {
         return res.status(400).json({ message: 'All parameters are required' })
     }
 
-    const user = users.find(user => user.username === username)
+    const user = users.find(user => user.email === email)
 
     if (!user || user.password !== password) {
         return res.status(401).json({ message: 'Invalid Credencials' })
     }
+
+    const username = user.username
 
     const payload = { username }
 
